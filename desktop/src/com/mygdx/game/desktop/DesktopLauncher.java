@@ -11,8 +11,8 @@ public class DesktopLauncher {
 		
 		config.width = 1366;
 		config.height = 768;
-		config.x=-1;
-		config.y=-1;
+//		config.x=-1;
+//		config.y=-1;
 		config.fullscreen = false;
 		
 	}

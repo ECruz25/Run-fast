@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Bomb extends Character{
+public class Hardcore extends Character{
 
 	Character character;
 	
@@ -16,7 +16,7 @@ public class Bomb extends Character{
 	
 	Math math;
 	
-	public Bomb(Character character) {
+	public Hardcore(Character character) {
 
 		super(loadImages());
 
@@ -50,10 +50,8 @@ public class Bomb extends Character{
 		
 		if(this.getY() < 400){
 
-			this.setY(this.getY()-(20 + Math.round((Player.score)/2)));
-			this.setX(this.getX()-(15 + Math.round((Player.score)/2)));
-			
-//			System.out.println(Player.score);
+			this.setY(this.getY()-20);
+			this.setX(this.getX()-10);
 			
 			if(this.getY() == 100){
 				

@@ -1,12 +1,13 @@
 package com.mygdx.game;
 
+
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Player extends Character{
+public class MenuSprite extends Character{
 
 	float gravity;
 	
@@ -14,9 +15,7 @@ public class Player extends Character{
 	
 	public static int score;
 	
-	boolean jumped = true;
-	
-	public Player() {
+	public MenuSprite() {
 		
 		super(loadImages());
 		
@@ -24,11 +23,11 @@ public class Player extends Character{
 		
 		gravity = 400f;
 		
-		setX(150);
+		setX(1100);
 		
 		this.name = "player";
 		
-		this.floor -= 20;
+		this.floor-=20;
 	
 	}
 	
@@ -40,8 +39,7 @@ public class Player extends Character{
         images.add(new Image(new Texture("run02.png")));
         images.add(new Image(new Texture("run03.png")));
         images.add(new Image(new Texture("run04.png")));
-        images.add(new Image(new Texture("jump.png")));
-
+        
 		return images;
 		
 	}
@@ -64,45 +62,22 @@ public class Player extends Character{
 	}
 	
 	public void jump(){
-		
-//		if(getY() == floor || (getY() >= 49 && getY()<=300)){
-//			
-//			if(getY() <= 500){
-//				
-//				this.jumpImage = 1;
-//
-//				accelerationY = 95f;
-//				
-//				if(getY() > 500){
-//					
-//					setY(50);
-//					
-//				}
-//				
-//				if(getY() == 50){
-//
-//					System.out.println("Score: " + score);
-//					
-//					score++;
-//					
-//				}
-//				
-//			}
-//			
-//		}
-		
-		if(getY() == floor){
+				
+		if(getY() == floor ){
 			
+			this.jumpImage = 1;
+
 			accelerationY = 95f;
 			
-			jumped = true;
+			score++;
 			
 		}
-		else if(jumped){
+		
+		else if(getY() == floor*2){
 			
+			this.jumpImage = 1;
+
 			accelerationY = 95f;
-			
-			jumped = false;
 			
 		}
 		
@@ -123,7 +98,7 @@ public class Player extends Character{
 		}
 		
 		else if(getY() == floor){
-			
+
 			images.get(actualImage).setPosition(getX(), getY());
 			
 			images.get(actualImage).draw(batch, parentAlpha);

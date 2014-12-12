@@ -27,7 +27,6 @@ public class Character extends Actor{
 		
 		super();
 		
-		
 		this.images = images;
 		speedX = 0;
 		speedY = 0;
@@ -45,9 +44,9 @@ public class Character extends Actor{
 	
 	@Override
 	public void act(float delta) {
-
+		
 		super.act(delta);
-	
+		
 		frame += delta;
 		
 		if(frame>animationSpeed){
@@ -70,7 +69,7 @@ public class Character extends Actor{
 		moveBy(speedX * delta,speedY*delta);
 		
 		if(getY()<=floor){
-		
+			
 			setY(floor);
 			
 		}
@@ -87,21 +86,5 @@ public class Character extends Actor{
 //		images.get(actualImage).draw(batch, parentAlpha);
 				
 	}
-	
-//	boolean collision(Character character){
-//		
-//		Rectangle r1 = new Rectangle(getX()+getWidth()/4,
-//				getY()+getHeight()/4, 
-//				getWidth()/2,
-//				getHeight()/2);
-//		
-//		Rectangle r2 = new Rectangle(character.getX() + character.getWidth()/4, 
-//				character.getY() + character.getHeight()/4,
-//				character.getWidth()/2,
-//				character.getHeight()/2);
-//
-//		return r1.overlaps(r2);
-//		
-//	}
 	
 }
