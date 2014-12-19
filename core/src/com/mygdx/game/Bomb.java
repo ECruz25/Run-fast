@@ -10,9 +10,9 @@ public class Bomb extends Character{
 
 	Character character;
 	
-	public static final int X = 1000;
+	public static final int X = 1150;
 	
-	public static final int Y = 350; 
+	public static final int Y = 450; 
 	
 	Math math;
 	
@@ -48,19 +48,19 @@ public class Bomb extends Character{
 
 		super.act(delta);
 		
-		if(this.getY() < 400){
+		if(this.getY() < 500){
 
-			this.setY(this.getY()-(20 + Math.round((Player.score)/2)));
-			this.setX(this.getX()-(15 + Math.round((Player.score)/2)));
+			this.setY(this.getY()-(17 + Math.round((Player.score)/2)));
+			this.setX(this.getX()-(12 + Math.round((Player.score)/2)));
 			
-//			System.out.println(Player.score);
+			System.out.println(Player.score);
 			
 			if(this.getY() == 100){
 				
 				if(this.getX() < 200){
 		        	
-					this.setX(1000);
-					this.setY(350);
+					this.setX(1300);
+					this.setY(450);
 			        	
 				}
 				

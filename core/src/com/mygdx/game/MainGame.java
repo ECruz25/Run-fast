@@ -1,24 +1,32 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class MainGame extends Game implements InputProcessor, ApplicationListener{
+
+public class MainGame implements InputProcessor, ApplicationListener, Screen{
 	
 	int frame;
-	int iteraciones;
+	int iteraciones;	
 	
+	OrthographicCamera camera;
+
 	public static int score;
+	
+	int x = 1366;
+	int y = 768;
 	
 	Stage stage;
 	Stage menu;
@@ -32,6 +40,7 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 	Image quitButton;
 	Image howToButton;
 	Image backButton;
+	Image backButton2;
 	Image howToScreen;
 	Image menuScreen;
 	Image background;
@@ -77,10 +86,14 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 	Rectangle playerR3;
 	Rectangle bombR3;
 	
+	FitViewport viewport;
+	
 	@Override
 	public void create () {
 		
-//		setScreen(new Menu());
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, x, y);
+		viewport = new FitViewport(x, y, camera); // change this to your needed viewport
 		
 		Gdx.input.setInputProcessor(this);
 		
@@ -93,6 +106,12 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 		levels = new Stage();
 		trainingLvl = new Stage();
 		hardcoreLvl = new Stage();
+		
+		stage.setViewport(viewport);
+		menu.setViewport(viewport);
+		gameOver.setViewport(viewport);
+		howTo.setViewport(viewport);	
+		levels.setViewport(viewport);
 		
 		frame = 0;
 		iteraciones = 0;
@@ -135,19 +154,21 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 		howToButton = new Image(new Texture("HowTo_Button.png"));
 		howToScreen = new Image(new Texture("howto_Screen.png"));
 		backButton = new Image(new Texture("backButton.png"));
+		backButton2 = new Image(new Texture("backButton.png"));
 		background = new Image(new Texture("dark.png"));
 		background2 = new Image(new Texture("dark.png"));
 		endlessButton = new Image(new Texture("endlessButton.png"));
 		trainingButton = new Image(new Texture("trainingButton.png"));
 		normalButton = new Image(new Texture("normalButton.png"));
 		
-		startButton.setBounds(200, 300, 250, 100);
-		quitButton.setBounds(200, 50, 250, 100);
-		howToButton.setBounds(800, 300, 250, 100);
-		backButton.setBounds(900, 50, 200, 100);
-		normalButton.setBounds(500, 500, 400, 100);
-		trainingButton.setBounds(500, 300, 400, 100);
-		endlessButton.setBounds(500, 100, 400, 100);
+		startButton.setCenterPosition(350, 400);
+		quitButton.setCenterPosition(350, 200);
+		howToButton.setCenterPosition(900, 400);
+		backButton.setCenterPosition(900, 100);
+		backButton2.setX(1000);
+		normalButton.setCenterPosition(650, 500);
+		trainingButton.setCenterPosition(650, 350);
+		endlessButton.setCenterPosition(650, 200);
 
 		menu.addActor(background);
 		menu.addActor(startButton);
@@ -178,10 +199,11 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 		levels.addActor(endlessButton);
 		levels.addActor(trainingButton);
 		levels.addActor(normalButton);
+//		levels.addActor(backButton2);
 		
 		gameover = new Image(new Texture("gameover.png"));
 		
-		gameOver.addActor(gameover);
+		gameOver.   addActor(gameover);
 		
 		bombR = new Rectangle(bomb.getX()+bomb.getWidth()/4,
 				bomb.getY()+bomb.getHeight()/4, 
@@ -300,6 +322,29 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 			
 		});
 		
+//		backButton.addListener(new InputListener(){
+//			
+//			@Override
+//			public boolean touchDown(InputEvent event, float x, float y,
+//					int pointer, int button) {
+//				
+//				howTo.dispose();
+//				
+//				System.out.println("going back");
+//				
+//				backB = true;
+//				howto = false;
+//				
+//				System.out.println("how to: " + howto);
+//				
+//				Gdx.input.setInputProcessor(howTo);
+//				
+//				return true;
+//				
+//			}
+//			
+//		});
+		
 		quitButton.addListener(new InputListener(){
 			
 			@Override
@@ -381,7 +426,7 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 	@Override
 	public void render () {
 		
-		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		if(collision()){
@@ -438,7 +483,7 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 				menu.draw();
 				menu.act();
 				
-				howto=false;
+				howto = false;
 				
 			}
 			
@@ -464,8 +509,6 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 
 					stage.act();
 					stage.draw();
-					
-//					music.play();
 					
 				}
 				
@@ -607,11 +650,44 @@ public class MainGame extends Game implements InputProcessor, ApplicationListene
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void resize(int width, int height) {
+		viewport.update(width, height);
+	}
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void dispose() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

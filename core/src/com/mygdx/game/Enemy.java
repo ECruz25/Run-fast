@@ -12,7 +12,7 @@ public class Enemy extends Character{
 
 		super(loadImages());
 		
-		setX(1000);
+		setX(1150);
 		setY(500);
 		
 		this.accelerationY = 0;

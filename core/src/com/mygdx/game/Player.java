@@ -29,7 +29,7 @@ public class Player extends Character{
 		this.name = "player";
 		
 		this.floor -= 20;
-	
+		
 	}
 	
 	static ArrayList<Image> loadImages(){
@@ -64,48 +64,16 @@ public class Player extends Character{
 	}
 	
 	public void jump(){
-		
-//		if(getY() == floor || (getY() >= 49 && getY()<=300)){
-//			
-//			if(getY() <= 500){
-//				
-//				this.jumpImage = 1;
-//
-//				accelerationY = 95f;
-//				
-//				if(getY() > 500){
-//					
-//					setY(50);
-//					
-//				}
-//				
-//				if(getY() == 50){
-//
-//					System.out.println("Score: " + score);
-//					
-//					score++;
-//					
-//				}
-//				
-//			}
-//			
-//		}
-		
+
 		if(getY() == floor){
 			
-			accelerationY = 95f;
+			accelerationY = 85f;
 			
 			jumped = true;
 			
-		}
-		else if(jumped){
-			
-			accelerationY = 95f;
-			
-			jumped = false;
+			score++;
 			
 		}
-		
 		
 	}
 	
@@ -113,6 +81,10 @@ public class Player extends Character{
 	public void draw(Batch batch, float parentAlpha) {
 				
 		super.draw(batch, parentAlpha);
+		
+		images.get(actualImage).setSize(150, 150);
+
+		images.get(images.size()-1).setSize(150, 150);
 		
 		if(getY() > floor){
 			

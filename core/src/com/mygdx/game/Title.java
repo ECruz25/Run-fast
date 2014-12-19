@@ -11,19 +11,19 @@ public class Title extends Image{
 		
 		this.setX(0);
 		
+		this.setY(570);
+		
 	}
 	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		
-		this.setY(570);
-
-        this.setX(this.getX()+5);
+	
+		this.setX(this.getX()+5);
 		
 		if(this.getX() >= 1350){
 			
-			this.setX(-850);
+			this.setX(-1250);
 			
 		}
         

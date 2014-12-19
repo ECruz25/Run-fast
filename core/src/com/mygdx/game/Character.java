@@ -82,6 +82,9 @@ public class Character extends Actor{
 		super.draw(batch, parentAlpha);
 
 		images.get(actualImage).setPosition(getX(), getY());
+
+		images.get(this.actualImage).setHeight(150);
+		images.get(this.actualImage).setWidth(150);
 		
 //		images.get(actualImage).draw(batch, parentAlpha);
 				
